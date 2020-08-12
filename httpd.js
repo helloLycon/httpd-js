@@ -1,7 +1,6 @@
 #!/usr/bin/node
 
-const httpsPort = 4430;
-const httpPort = 8080;
+const port = 8080;
 
 const http = require('http');
 const https = require('https');
@@ -31,8 +30,10 @@ function acceptJson(req, resp) {
   });
 }
 
-https.createServer(options, helloWorld).listen(httpsPort);
-console.log('httpd listen on ' + httpsPort + '.');
-
-//http.createServer(helloWorld).listen(httpPort);
-//console.log('httpd listen on ' + httpPort + '.');
+const bootHttps = 1;
+if(bootHttps) {
+  https.createServer(options, acceptJson).listen(port);
+} else {
+  http.createServer(helloWorld).listen(port);
+}
+console.log('httpd listen on ' + port + '.');
